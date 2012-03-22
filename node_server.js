@@ -1,6 +1,15 @@
-var net = require('net');
-var server = net.createServer(function (socket) {
-  socket.write('Echo server\r\n');
-  socket.pipe(socket);
+var net = require("net"), util = require('util');
+
+var server = net.createServer(function (stream) {
+  stream.setEncoding("utf8");
+  stream.on("connect", function () {
+    util.puts(server.connections);
+  });
+  stream.on("data", function (data) {
+  });
+  stream.on("end", function () {
+  });
 });
-server.listen(1337, '127.0.0.1');
+server.listen(9999, "0.0.0.0");
+
+console.log("created server on 9999 port");

@@ -10,12 +10,11 @@ class ServerHandler < EventMachine::Connection
   end
 end
 
-EM.epoll if EM.epoll?
-EM.kqueue = true if EM.kqueue?
-
-puts "=== file descriptor size: #{EM.set_descriptor_table_size}"
-
 EM.run do
+  EM.epoll if EM.epoll?
+  EM.kqueue = true if EM.kqueue?
+  puts "=== file descriptor size: #{EM.set_descriptor_table_size}"
+
   EM::start_server "0.0.0.0", 9999, ServerHandler
   puts "Started Server 9999 ..."
 end
